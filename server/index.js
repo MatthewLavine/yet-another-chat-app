@@ -25,7 +25,10 @@ const redisClient = createClient(
 
 redisClient.on('connect', async () => {
     console.log('Connected to Redis');
-    await redisClient.json.set('messages', '$', []);
+    const messages = await redisClient.json.get('messages', '$', []);
+    if (!messages) {
+        await redisClient.json.set('messages', '$', []);
+    }
 });
 
 redisClient.on('error', (error) => {
