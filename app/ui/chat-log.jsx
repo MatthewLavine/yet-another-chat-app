@@ -1,6 +1,6 @@
 'use client';
 
-export default function ChatLog({ socket, messages }) {
+export default function ChatLog({ socket, connected, messages }) {
     return (
         <div className="w-full min-h-72 bg-slate-600 p-5 rounded-lg">
             {messages.map((message, index) => (
