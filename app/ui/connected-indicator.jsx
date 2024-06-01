@@ -4,7 +4,7 @@ import { clsx } from 'clsx';
 
 export default function ConnectedIndicator({ connected }) {
     return (
-        <div className='object-top-left m-5'>
+        <div className='fixed top-5 left-5'>
             <button
                 type="button"
                 className={

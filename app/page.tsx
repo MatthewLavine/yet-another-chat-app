@@ -84,7 +84,7 @@ export default function Home() {
     <main>
       <ConnectedIndicator connected={connected} />
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="flex flex-col gap-5 z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+        <div className="flex-col flex-grow gap-5 z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
           <h1 className="text-3xl font-medium">Yet Another Chat App</h1>
           <ChatLog socket={socket} connected={connected} messages={messages} />
           <InputForm socket={socket} addMessage={addMessage} />
