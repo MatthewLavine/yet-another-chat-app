@@ -22,14 +22,22 @@ export default function Home() {
   const [messages, setMessages] = useState<any>([]);
   const [connected, setConnected] = useState(false);
 
-  useEffect(() => {
-    console.log('connecting socket');
+  function connectSocket() {
     socket.connect();
     setConnected(true);
+  }
+
+  function disconnectSocket() {
+    socket.disconnect();
+    setConnected(false);
+  }
+
+  useEffect(() => {
+    console.log('connecting socket');
+    connectSocket();
 
     return () => {
-      socket.disconnect();
-      setConnected(false);
+      disconnectSocket();
     }
   }, []);
 
@@ -72,7 +80,7 @@ export default function Home() {
 
   return (
     <main>
-      <ConnectedIndicator connected={connected} />
+      <ConnectedIndicator connected={connected} connectFunc={connectSocket} disconnectFunc={disconnectSocket} />
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="flex-col flex-grow gap-5 z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
           <h1 className="text-3xl font-medium">Yet Another Chat App</h1>
