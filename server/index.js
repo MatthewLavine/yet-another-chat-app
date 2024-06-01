@@ -38,6 +38,9 @@ process.on("SIGINT", () => {
   process.exit();
 });
 
+let rooms = [{ name: "general" }];
+let users = [];
+
 io.on("connection", async (socket) => {
   console.log(`⚡: ${socket.id} user just connected!`);
   console.log(`total connections: ${io.engine.clientsCount}`);
@@ -57,22 +60,28 @@ io.on("connection", async (socket) => {
   socket.on("disconnect", () => {
     console.log(`🔥: ${socket.id} user disconnected`);
     console.log(`total connections: ${io.engine.clientsCount}`);
-
+    users = users.filter((u) => u.id !== socket.id);
+    console.log("🚪: users: %o", users);
     io.emit("chat message", {
       time: new Date().toISOString().split("T")[1],
       sender: "SYSTEM",
       content: `🔥: ${user} left the chat`,
     });
+    io.emit("users", users);
   });
 
   socket.on("join", async (username) => {
     console.log("🚪: user joined: %s", username);
     user = username;
+    users.push({ id: socket.id, name: user });
+    console.log("🚪: users: %o", users);
     io.emit("chat message", {
       time: new Date().toISOString().split("T")[1],
       sender: "SYSTEM",
       content: `🚪: ${user} joined the chat`,
     });
+    io.emit("users", users);
+    io.emit("rooms", rooms);
   });
 
   socket.on("chat message", async (msg) => {
