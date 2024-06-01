@@ -1,0 +1,34 @@
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      - frontend
+  backend:
+    build:
+      context: ./server
+    ports:
+      - 4000:4000
+    depends_on:
+      - database
+    networks:
+      - frontend
+      - backend
+  database:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - backend
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+volumes:
+  redis_data:
+networks:
+  frontend:
+  backend:
