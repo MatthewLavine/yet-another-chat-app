@@ -70,6 +70,7 @@ export default function Home() {
       socket.off("connect");
       socket.off("disconnect");
       socket.off("chat message");
+      socket.off("clear history");
     };
   });
 
