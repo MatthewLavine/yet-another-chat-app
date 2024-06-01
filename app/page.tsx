@@ -62,6 +62,10 @@ export default function Home() {
       addMessage(msg.time, msg.sender, msg.content);
     });
 
+    socket.on("clear history", () => {
+      setMessages([]);
+    });
+
     return () => {
       socket.off("connect");
       socket.off("disconnect");

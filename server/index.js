@@ -79,6 +79,12 @@ io.on("connection", async (socket) => {
 
     io.emit("chat message", msg);
   });
+
+  socket.on("clear history", async () => {
+    console.log("🗑: clearing history");
+    await redisClient.json.set("messages", "$", []);
+    io.emit("clear history");
+  });
 });
 
 app.get("/", (req, res) => {
