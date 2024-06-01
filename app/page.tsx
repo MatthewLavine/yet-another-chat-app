@@ -22,11 +22,6 @@ export default function Home() {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    if (connected) {
-      console.log('already connected!');
-      return;
-    }
-
     console.log('connecting socket');
     socket.connect();
     setConnected(true);
