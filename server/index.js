@@ -45,6 +45,9 @@ io.on("connection", async (socket) => {
   let user;
 
   await redisClient.json.get("messages", "$").then((messages) => {
+    if (messages.length === 0) {
+      return;
+    }
     console.log("📨: sending history: %o", messages);
     for (const message of messages) {
       socket.emit("chat message", message);
@@ -74,9 +77,7 @@ io.on("connection", async (socket) => {
 
   socket.on("chat message", async (msg) => {
     console.log("📨: broadcasting message: %o", msg);
-
     await redisClient.json.arrAppend("messages", "$", msg);
-
     io.emit("chat message", msg);
   });
 
