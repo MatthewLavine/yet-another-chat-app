@@ -3,10 +3,14 @@
 import { useRef } from 'react'
 
 export default function InputForm({ socket, addMessage }) {
+    const randomUsername = () => {
+        return `user-${(Math.random() + 1).toString(36).substring(7)}`;
+    }
+
     const inputRef = useRef(null);
 
     const sendMessage = (sender, message) => {
-        if (message === "") {
+        if (sender === "" || message === "") {
             return;
         }
         console.log("sending message: %s", message)
@@ -21,9 +25,20 @@ export default function InputForm({ socket, addMessage }) {
     return (
         <form
             action={async (formData) => {
-                sendMessage("Matt", formData.get("message"));
+                sendMessage(
+                    formData.get("username"),
+                    formData.get("message")
+                );
             }}
             className="flex flex-row w-full gap-5">
+            <input
+                name="username"
+                type="text"
+                placeholder="Username"
+                autoComplete="off"
+                defaultValue={randomUsername()}
+                className="rounded-lg p-2 border border-blue-500"
+            />
             <input
                 name="message"
                 type="text"
