@@ -3,6 +3,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { createClient } from "redis";
+import { randomUUID } from "crypto";
 
 const PORT = 4000;
 
@@ -63,6 +64,7 @@ io.on("connection", async (socket) => {
     users = users.filter((u) => u.id !== socket.id);
     console.log("🚪: users: %o", users);
     io.emit("chat message", {
+      id: randomUUID(),
       time: new Date().toISOString().split("T")[1],
       sender: "SYSTEM",
       content: `🔥: ${user} left the chat`,
@@ -76,6 +78,7 @@ io.on("connection", async (socket) => {
     users.push({ id: socket.id, name: user });
     console.log("🚪: users: %o", users);
     io.emit("chat message", {
+      id: randomUUID(),
       time: new Date().toISOString().split("T")[1],
       sender: "SYSTEM",
       content: `🚪: ${user} joined the chat`,
@@ -86,6 +89,7 @@ io.on("connection", async (socket) => {
 
   socket.on("chat message", async (msg) => {
     console.log("📨: broadcasting message: %o", msg);
+    msg.id = randomUUID();
     await redisClient.json.arrAppend("messages", "$", msg);
     io.emit("chat message", msg);
   });
