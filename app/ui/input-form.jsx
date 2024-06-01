@@ -12,6 +12,7 @@ export default function InputForm({
 
   const sendMessage = (sender, message) => {
     if (sender === "" || message === "") {
+      inputRef.current.focus();
       return;
     }
     console.log("sending message: %s", message);
