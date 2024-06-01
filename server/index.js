@@ -1,12 +1,20 @@
-const express = require('express');
-const app = express();
+import express from 'express';
+import cors from 'cors';
+import { Server } from 'socket.io';
+import { createServer } from 'http';
+import { createClient } from 'redis';
+
 const PORT = 4000;
 
-const http = require('http').Server(app);
-const cors = require('cors');
-const redis = require('redis');
-
-const redisClient = redis.createClient(
+const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:3000"
+    }
+});
+app.use(cors());
+const redisClient = createClient(
     {
         socket: {
             host: 'database',
@@ -15,10 +23,9 @@ const redisClient = redis.createClient(
     }
 );
 
-redisClient.connect();
-
-redisClient.on('connect', () => {
+redisClient.on('connect', async () => {
     console.log('Connected to Redis');
+    await redisClient.json.set('messages', '$', []);
 });
 
 redisClient.on('error', (error) => {
@@ -30,51 +37,55 @@ process.on('SIGINT', () => {
     process.exit();
 });
 
-app.use(cors());
-
-const socketIO = require('socket.io')(http, {
-    cors: {
-        origin: "http://localhost:3000"
-    }
-});
-
-socketIO.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
-    console.log(`total connections: ${socketIO.engine.clientsCount}`);
+    console.log(`total connections: ${io.engine.clientsCount}`);
+
+    let user;
+
+    await redisClient.json.get('messages', '$').then((messages) => {
+        console.log('📨: sending history: %o', messages);
+        for (const message of messages) {
+            socket.emit('chat message', message);
+        }
+    });
 
     socket.on('disconnect', () => {
         console.log(`🔥: ${socket.id} user disconnected`);
-        console.log(`total connections: ${socketIO.engine.clientsCount}`);
+        console.log(`total connections: ${io.engine.clientsCount}`);
+
+        io.emit('chat message', {
+            time: new Date().toISOString().split('T')[1],
+            sender: "SYSTEM",
+            content: `🔥: ${user} left the chat`,
+        });
     });
 
-    socket.on('chat message', (msg) => {
+    socket.on('join', async (username) => {
+        console.log('🚪: user joined: %s', username);
+        user = username;
+        io.emit('chat message', {
+            time: new Date().toISOString().split('T')[1],
+            sender: "SYSTEM",
+            content: `🚪: ${user} joined the chat`,
+        });
+    });
+
+    socket.on('chat message', async (msg) => {
         console.log('📨: broadcasting message: %o', msg);
 
-        // redisClient.json.arrAppend('noderedis:jsondata', '$.messages', msg, (error, reply) => {
-        //     if (error) {
-        //         console.error('Error adding message to Redis:', error);
-        //     } else {
-        //         console.log('Message added to Redis:', reply);
-        //     }
-        // });
+        await redisClient.json.arrAppend('messages', '$', msg);
 
-        socketIO.emit('chat message', msg);
+        io.emit('chat message', msg);
     });
 });
 
-socketIO.engine.on("connection_error", (err) => {
-    console.log(err.req);      // the request object
-    console.log(err.code);     // the error code, for example 1
-    console.log(err.message);  // the error message, for example "Session ID unknown"
-    console.log(err.context);  // some additional error context
-});
+app.get('/', (req, res) => {
+    res.send('Backend Online');
+})
 
-app.get('/api', (req, res) => {
-    res.json({
-        message: 'Hello world',
-    });
-});
+redisClient.connect();
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });

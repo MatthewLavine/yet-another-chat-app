@@ -7,31 +7,17 @@ import ConnectedIndicator from "@/app/ui/connected-indicator";
 
 import io from 'socket.io-client'
 
-const initialMessages =
-  [
-    {
-      time: "00:00:00.000Z",
-      sender: "foo",
-      content: "bar",
-    },
-    {
-      time: "00:00:01.000Z",
-      sender: "fizz",
-      content: "buzz",
-    },
-    {
-      time: "00:00:02.000Z",
-      sender: "Bob",
-      content: "Needs more AI",
-    },
-  ];
-
 const socket = io('http://localhost:4000', {
   autoConnect: false,
 });
 
 export default function Home() {
 
+  const randomUsername = () => {
+    return `user-${(Math.random() + 1).toString(36).substring(7)}`;
+  }
+
+  const [username, setUsername] = useState(randomUsername());
   const [messages, setMessages] = useState<any>([]);
   const [connected, setConnected] = useState(false);
 
@@ -54,15 +40,23 @@ export default function Home() {
   useEffect(() => {
     socket.on('connect', () => {
       console.log('connected socket');
+
+      socket.emit('join', username);
     });
 
     socket.on('disconnect', () => {
       console.log('disconnected socket');
+
+      addMessage(
+        new Date().toISOString().split('T')[1],
+        "SYSTEM",
+        `🔥: ${username} left the chat`,
+      );
     });
 
     socket.on('chat message', (msg: any) => {
       console.log('received message: %o', msg);
-      addMessage(msg.sender, msg.content);
+      addMessage(msg.time, msg.sender, msg.content);
     });
 
     return () => {
@@ -72,9 +66,9 @@ export default function Home() {
     }
   });
 
-  function addMessage(sender: string, message: string) {
-    setMessages([...messages, {
-      time: new Date().toISOString().split('T')[1],
+  function addMessage(time: string, sender: string, message: string) {
+    setMessages((messages: any) => [...messages, {
+      time: time,
       sender: sender,
       content: message,
     }]);
@@ -87,7 +81,7 @@ export default function Home() {
         <div className="flex-col flex-grow gap-5 z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
           <h1 className="text-3xl font-medium">Yet Another Chat App</h1>
           <ChatLog socket={socket} connected={connected} messages={messages} />
-          <InputForm socket={socket} addMessage={addMessage} />
+          <InputForm socket={socket} addMessage={addMessage} username={username} setUsername={setUsername} />
         </div>
       </div>
     </main>

@@ -2,11 +2,7 @@
 
 import { useRef } from 'react'
 
-export default function InputForm({ socket, addMessage }) {
-    const randomUsername = () => {
-        return `user-${(Math.random() + 1).toString(36).substring(7)}`;
-    }
-
+export default function InputForm({ socket, addMessage, username, setUsername }) {
     const inputRef = useRef(null);
 
     const sendMessage = (sender, message) => {
@@ -15,6 +11,7 @@ export default function InputForm({ socket, addMessage }) {
         }
         console.log("sending message: %s", message)
         socket.emit("chat message", {
+            time: new Date().toISOString().split('T')[1],
             sender: sender,
             content: message,
         });
@@ -36,7 +33,7 @@ export default function InputForm({ socket, addMessage }) {
                 type="text"
                 placeholder="Username"
                 autoComplete="off"
-                defaultValue={randomUsername()}
+                defaultValue={username}
                 className="rounded-lg p-2 border border-blue-500"
             />
             <input

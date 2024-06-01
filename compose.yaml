@@ -34,12 +34,12 @@ services:
       - frontend
       - backend
   database:
-    image: redis:latest
+    image: redis/redis-stack:latest
     ports:
       - 6379:6379
+      - 8001:8001
     networks:
       - backend
-    command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
 volumes:
