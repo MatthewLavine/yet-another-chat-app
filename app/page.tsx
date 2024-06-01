@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ChatLog from "@/app/ui/chat-log";
 import InputForm from "@/app/ui/input-form";
+import RoomList from "@/app/ui/room-list";
 import ConnectedIndicator from "@/app/ui/connected-indicator";
 
 import io from 'socket.io-client'
@@ -75,7 +76,10 @@ export default function Home() {
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="flex-col flex-grow gap-5 z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
           <h1 className="text-3xl font-medium">Yet Another Chat App</h1>
-          <ChatLog socket={socket} connected={connected} messages={messages} />
+          <div className="flex flex-row flex-grow w-full min-h-72">
+            <RoomList />
+            <ChatLog socket={socket} connected={connected} messages={messages} />
+          </div>
           <InputForm socket={socket} addMessage={addMessage} username={username} setUsername={setUsername} />
         </div>
       </div>
