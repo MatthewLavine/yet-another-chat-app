@@ -48,7 +48,7 @@ export default function Home() {
       socket.disconnect();
       setConnected(false);
     }
-  }, []);
+  }, [connected]);
 
   useEffect(() => {
     socket.on('connect', () => {
