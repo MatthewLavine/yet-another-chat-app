@@ -81,7 +81,7 @@ io.on("connection", async (socket) => {
       content: `🚪: ${user} joined the chat`,
     });
     io.emit("users", users);
-    io.emit("rooms", rooms);
+    socket.emit("rooms", rooms);
   });
 
   socket.on("chat message", async (msg) => {
