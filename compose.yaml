@@ -4,6 +4,14 @@ services:
       context: .
     ports:
       - 3000:3000
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+          ignore:
+            - node_modules
+            - server
     depends_on:
       - backend
     networks:
@@ -13,6 +21,13 @@ services:
       context: ./server
     ports:
       - 4000:4000
+    develop:
+      watch:
+        - action: sync
+          path: ./server
+          target: /app
+          ignore:
+            - node_modules
     depends_on:
       - database
     networks:

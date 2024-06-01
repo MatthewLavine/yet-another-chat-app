@@ -25,14 +25,6 @@ redisClient.on('error', (error) => {
     console.error('Error connecting to Redis:', error);
 });
 
-redisClient.set('key', 'value', (error, reply) => {
-    if (error) {
-        console.error('Error setting value in Redis:', error);
-    } else {
-        console.log('Value set in Redis:', reply);
-    }
-});
-
 process.on('SIGINT', () => {
     redisClient.quit();
     process.exit();
@@ -56,15 +48,15 @@ socketIO.on('connection', (socket) => {
     });
 
     socket.on('chat message', (msg) => {
-        console.log('📨: %o', msg);
+        console.log('📨: broadcasting message: %o', msg);
 
-        redisClient.json.arrAppend('noderedis:jsondata', '$.messages', msg, (error, reply) => {
-            if (error) {
-                console.error('Error adding message to Redis:', error);
-            } else {
-                console.log('Message added to Redis:', reply);
-            }
-        });
+        // redisClient.json.arrAppend('noderedis:jsondata', '$.messages', msg, (error, reply) => {
+        //     if (error) {
+        //         console.error('Error adding message to Redis:', error);
+        //     } else {
+        //         console.log('Message added to Redis:', reply);
+        //     }
+        // });
 
         socketIO.emit('chat message', msg);
     });
