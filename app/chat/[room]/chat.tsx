@@ -130,9 +130,9 @@ export default function Chat() {
           connectFunc={connectSocket}
           disconnectFunc={disconnectSocket}
         />
-        <RoomList rooms={rooms} />
+        <RoomList rooms={rooms} connected={connected} />
         <ChatLog socket={socket} connected={connected} messages={messages} />
-        <UserList users={users} />
+        <UserList users={users} connected={connected} />
       </div>
       <div className="mt-5">
         <InputForm

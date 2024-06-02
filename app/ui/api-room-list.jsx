@@ -14,7 +14,7 @@ export default async function ApiRoomList() {
       <div className="flex-grow rounded-b-lg bg-slate-600 pb-2 pl-5 pr-5 pt-2 text-slate-100">
         {rooms.map((room, index) => (
           <div key={index} className="mt-1">
-            <Link href={`/chat/${room}`}> - {room}</Link>
+            <Link href={`/chat/${room}`}>{room}</Link>
           </div>
         ))}
       </div>
