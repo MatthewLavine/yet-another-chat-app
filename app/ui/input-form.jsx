@@ -4,9 +4,14 @@ import { useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function InputForm({ socket, username, updateUsername }) {
+  const usernameRef = useRef(null);
   const inputRef = useRef(null);
 
   const updateUsernameDebounced = useDebouncedCallback((newUsername) => {
+    if (newUsername === "") {
+      usernameRef.current.value = username;
+      return;
+    }
     updateUsername(newUsername);
   }, 500);
 
@@ -41,6 +46,7 @@ export default function InputForm({ socket, username, updateUsername }) {
       <input
         name="username"
         type="text"
+        ref={usernameRef}
         placeholder="Username"
         autoComplete="off"
         defaultValue={username}
