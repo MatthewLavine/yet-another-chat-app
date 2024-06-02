@@ -39,7 +39,7 @@ process.on("SIGINT", () => {
   process.exit();
 });
 
-let rooms = [{ name: "#general" }];
+let rooms = [{ name: "general" }, { name: "random" }, { name: "programming" }];
 let users = [];
 
 io.on("connection", async (socket) => {
@@ -124,6 +124,11 @@ io.on("connection", async (socket) => {
 
 app.get("/", (req, res) => {
   res.send("Backend Online");
+});
+
+app.get("/api/rooms", async (req, res) => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  res.json(rooms.map((room) => room.name));
 });
 
 redisClient.connect();

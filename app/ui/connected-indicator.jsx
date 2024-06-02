@@ -16,12 +16,12 @@ export default function ConnectedIndicator({
   }
 
   return (
-    <div className="fixed left-5 top-5">
+    <div className="fixed left-28 top-5">
       <button
         type="button"
         onClick={toggleConnection}
         className={clsx(
-          "h-10 items-center rounded-lg px-4 text-sm font-medium text-white transition-colors aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
+          "flex h-10 w-32 items-center justify-center rounded-lg text-sm font-medium text-white transition-colors aria-disabled:cursor-not-allowed aria-disabled:opacity-50",
           connected && "bg-green-500",
           !connected && "bg-red-500",
         )}
