@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import HomeButton from "@/app/ui/home-button";
+import SettingsButton from "@/app/ui/settings-button";
 
 export const metadata: Metadata = {
   title: "Yet Another Chat App",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <main>
           <HomeButton />
+          <SettingsButton />
           <div className="flex h-screen flex-col items-center justify-between p-24">
             <div className="flex w-full max-w-5xl flex-grow flex-col items-center justify-between gap-5 overflow-hidden font-mono text-sm">
               <h1 className="text-3xl font-medium">Yet Another Chat App</h1>

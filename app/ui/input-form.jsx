@@ -41,7 +41,7 @@ export default function InputForm({ socket, username, updateUsername }) {
       action={async (formData) => {
         sendMessage(formData.get("username"), formData.get("message"));
       }}
-      className="flex w-full flex-row gap-5"
+      className="mb-1 ml-5 mr-5 flex flex-row gap-5"
     >
       <input
         name="username"

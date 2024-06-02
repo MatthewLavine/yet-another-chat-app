@@ -16,7 +16,7 @@ export default function ConnectedIndicator({
   }
 
   return (
-    <div className="fixed left-28 top-5">
+    <div className="fixed left-52 top-5">
       <button
         type="button"
         onClick={toggleConnection}
