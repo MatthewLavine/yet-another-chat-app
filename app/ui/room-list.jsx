@@ -7,7 +7,7 @@ export default function RoomList({ rooms }) {
   } else {
     output = rooms.map((room, index) => (
       <div key={index} className="mt-1">
-        <span className="cursor-pointer">{room.name}</span>
+        <span className="cursor-pointer"> - {room.name}</span>
       </div>
     ));
   }
