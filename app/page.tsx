@@ -8,6 +8,7 @@ import UserList from "@/app/ui/user-list";
 import ConnectedIndicator from "@/app/ui/connected-indicator";
 
 import io from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
 
 const socket = io("http://localhost:4000", {
   autoConnect: false,
@@ -54,6 +55,7 @@ export default function Home() {
       console.log("disconnected socket");
 
       addMessage(
+        uuidv4(),
         new Date().toISOString().split("T")[1],
         "SYSTEM",
         `🔥: ${username} left the chat`,
@@ -62,7 +64,7 @@ export default function Home() {
 
     socket.on("chat message", (msg: any) => {
       console.log("received message: %o", msg);
-      addMessage(msg.time, msg.sender, msg.content);
+      addMessage(msg.id, msg.time, msg.sender, msg.content);
     });
 
     socket.on("rooms", (rooms: any) => {
@@ -89,15 +91,27 @@ export default function Home() {
     };
   });
 
-  function addMessage(time: string, sender: string, message: string) {
-    setMessages((messages: any) => [
-      ...messages,
-      {
-        time: time,
-        sender: sender,
-        content: message,
-      },
-    ]);
+  function addMessage(
+    id: string,
+    time: string,
+    sender: string,
+    message: string,
+  ) {
+    const newMessage = {
+      id: id,
+      time: time,
+      sender: sender,
+      content: message,
+    };
+    setMessages((existingMessages: any) => {
+      if (
+        existingMessages.filter((m: any) => m.id === newMessage.id).length > 0
+      ) {
+        console.log("omitting existing message: %o", newMessage);
+        return existingMessages;
+      }
+      return [...existingMessages, newMessage];
+    });
   }
 
   return (
