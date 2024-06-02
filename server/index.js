@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { createClient } from "redis";
 import { randomUUID } from "crypto";
+import morgan from "morgan";
 
 const PORT = 4000;
 
@@ -14,13 +15,15 @@ const io = new Server(server, {
     origin: "http://localhost:3000",
   },
 });
-app.use(cors());
 const redisClient = createClient({
   socket: {
     host: "database",
     port: 6379,
   },
 });
+
+app.use(cors());
+app.use(morgan("common"));
 
 redisClient.on("connect", async () => {
   console.log("Connected to Redis");
