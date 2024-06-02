@@ -25,6 +25,11 @@ export default function Home() {
   const [messages, setMessages] = useState<any>([]);
   const [connected, setConnected] = useState(false);
 
+  function updateUsername(newUsername: string) {
+    setUsername(newUsername);
+    socket.emit("namechange", newUsername);
+  }
+
   function connectSocket() {
     socket.connect();
     setConnected(true);
@@ -138,9 +143,8 @@ export default function Home() {
           </div>
           <InputForm
             socket={socket}
-            addMessage={addMessage}
             username={username}
-            setUsername={setUsername}
+            updateUsername={updateUsername}
           />
         </div>
       </div>

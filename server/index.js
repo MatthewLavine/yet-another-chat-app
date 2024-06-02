@@ -62,6 +62,26 @@ io.on("connection", async (socket) => {
     io.emit("users", users);
   });
 
+  socket.on("namechange", async (newName) => {
+    console.log("🔖: user changed name: %s", newName);
+    const oldName = user;
+    user = newName;
+    io.emit("chat message", {
+      id: randomUUID(),
+      time: new Date().toISOString().split("T")[1],
+      sender: "SYSTEM",
+      content: `🔖: ${oldName} changed their name to ${newName}`,
+    });
+    users = users.map((u) => {
+      if (u.id === socket.id) {
+        u.name = newName;
+      }
+      return u;
+    });
+    console.log("🚪: users: %o", users);
+    io.emit("users", users);
+  });
+
   socket.on("join", async (username) => {
     console.log("🚪: user joined: %s", username);
     user = username;

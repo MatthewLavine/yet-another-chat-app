@@ -12,6 +12,8 @@ services:
           ignore:
             - node_modules
             - server
+        - action: rebuild
+          path: package.json
     depends_on:
       - backend
     networks:

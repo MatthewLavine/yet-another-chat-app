@@ -1,14 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
-export default function InputForm({
-  socket,
-  addMessage,
-  username,
-  setUsername,
-}) {
+export default function InputForm({ socket, username, updateUsername }) {
   const inputRef = useRef(null);
+
+  const updateUsernameDebounced = useDebouncedCallback((newUsername) => {
+    updateUsername(newUsername);
+  }, 500);
 
   const sendMessage = (sender, message) => {
     if (sender === "" || message === "") {
@@ -44,6 +44,7 @@ export default function InputForm({
         placeholder="Username"
         autoComplete="off"
         defaultValue={username}
+        onChange={(e) => updateUsernameDebounced(e.target.value)}
         className="rounded-lg border border-blue-500 p-2"
       />
       <input
