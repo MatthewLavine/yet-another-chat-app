@@ -39,7 +39,7 @@ process.on("SIGINT", () => {
   process.exit();
 });
 
-let rooms = [{ name: "general" }];
+let rooms = [{ name: "#general" }];
 let users = [];
 
 io.on("connection", async (socket) => {

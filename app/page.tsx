@@ -60,6 +60,9 @@ export default function Home() {
         "SYSTEM",
         `🔥: ${username} left the chat`,
       );
+
+      setUsers([]);
+      setRooms([]);
     });
 
     socket.on("chat message", (msg: any) => {
