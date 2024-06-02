@@ -1,4 +1,5 @@
 # yet-another-chat-app
+
 I made this to play with websockets.
 
 ## Running
@@ -6,6 +7,10 @@ I made this to play with websockets.
 ### With Docker
 
 `$ docker compose up`
+
+#### Dev mode
+
+`$ docker compose down; docker compose up --watch --build`
 
 ### Directly
 
