@@ -9,7 +9,7 @@ export default function RoomList({ rooms }) {
       <div className="flex-grow rounded-b-lg bg-slate-600 p-5 text-slate-100">
         {rooms.map((room, index) => (
           <div key={index}>
-            <span>{room.name}</span>
+            <span className="cursor-pointer">{room.name}</span>
           </div>
         ))}
       </div>

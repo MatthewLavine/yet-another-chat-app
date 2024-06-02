@@ -9,7 +9,7 @@ export default function UserList({ users }) {
       <div className="flex-grow rounded-b-lg bg-slate-600 p-5 text-slate-100">
         {users.map((user, index) => (
           <div key={index}>
-            <span>{user.name}</span>
+            <span className="cursor-pointer">{user.name}</span>
           </div>
         ))}
       </div>
