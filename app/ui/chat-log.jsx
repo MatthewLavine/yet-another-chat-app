@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Message from "@/app/ui/message";
 
 export default function ChatLog({ socket, connected, messages }) {
   const messagesEndRef = useRef(null);
@@ -20,12 +21,7 @@ export default function ChatLog({ socket, connected, messages }) {
       </div>
       <div className="flex-grow overflow-scroll rounded-b-lg bg-slate-600 p-5 text-slate-100">
         {messages.map((message, index) => (
-          <div key={index}>
-            <span className="sender">[{message.time}]&nbsp;</span>
-            <span className="sender">&lt;{message.sender}&gt;&nbsp;</span>
-            <span className="content">{message.content}</span>
-            <div ref={messagesEndRef} />
-          </div>
+          <Message key={index} message={message} />
         ))}
       </div>
     </div>
