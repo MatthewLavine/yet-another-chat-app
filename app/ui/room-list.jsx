@@ -19,7 +19,7 @@ export default function RoomList({ rooms, connected }) {
   }
 
   return (
-    <div className="mr-5 flex min-h-72 flex-col rounded-lg">
+    <div className="mr-5 hidden min-h-72 w-40 flex-col rounded-lg md:flex">
       <div className="rounded-t-lg bg-slate-700 pb-2 pl-5 pr-5 pt-2 text-slate-100">
         <h2 className="text-lg">Rooms ({rooms.length})</h2>
       </div>
