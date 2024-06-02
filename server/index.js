@@ -48,16 +48,6 @@ io.on("connection", async (socket) => {
 
   let user;
 
-  await redisClient.json.get("messages", "$").then((messages) => {
-    if (messages.length === 0) {
-      return;
-    }
-    console.log("📨: sending history: %o", messages);
-    for (const message of messages) {
-      socket.emit("chat message", message);
-    }
-  });
-
   socket.on("disconnect", () => {
     console.log(`🔥: ${socket.id} user disconnected`);
     console.log(`total connections: ${io.engine.clientsCount}`);
@@ -77,6 +67,17 @@ io.on("connection", async (socket) => {
     user = username;
     users.push({ id: socket.id, name: user });
     console.log("🚪: users: %o", users);
+
+    await redisClient.json.get("messages", "$").then((messages) => {
+      if (messages.length === 0) {
+        return;
+      }
+      console.log("📨: sending history to user: %s", user);
+      for (const message of messages) {
+        socket.emit("chat message", message);
+      }
+    });
+
     io.emit("chat message", {
       id: randomUUID(),
       time: new Date().toISOString().split("T")[1],
