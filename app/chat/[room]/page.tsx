@@ -8,7 +8,7 @@ import RoomListSkeleton from "@/app/ui/room-list-skeleton";
 export default async function Page({ params }: { params: { room: string } }) {
   return (
     <>
-      <Chat />
+      <Chat room={params.room} />
     </>
   );
 }

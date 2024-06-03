@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import clsx from "clsx";
 
-export default function RoomList({ rooms, connected }) {
+export default function RoomList({ rooms, connected, currentRoom }) {
   let output;
   if (rooms.length === 0) {
     if (connected) {
@@ -12,7 +13,10 @@ export default function RoomList({ rooms, connected }) {
     }
   } else {
     output = rooms.map((room, index) => (
-      <div key={index} className="mt-1">
+      <div
+        key={index}
+        className={clsx("mt-1", currentRoom === room.name && "font-bold")}
+      >
         <Link href={`/chat/${room.name}`}>{room.name}</Link>
       </div>
     ));

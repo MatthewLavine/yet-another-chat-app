@@ -14,7 +14,7 @@ const socket = io("http://localhost:4000", {
   autoConnect: false,
 });
 
-export default function Chat() {
+export default function Chat({ room }) {
   const randomUsername = () => {
     return `user-${(Math.random() + 1).toString(36).substring(7)}`;
   };
@@ -53,7 +53,7 @@ export default function Chat() {
     socket.on("connect", () => {
       console.log("connected socket");
 
-      socket.emit("join", username);
+      socket.emit("join", { room: room, username: username });
     });
 
     socket.on("disconnect", () => {
@@ -130,8 +130,13 @@ export default function Chat() {
           connectFunc={connectSocket}
           disconnectFunc={disconnectSocket}
         />
-        <RoomList rooms={rooms} connected={connected} />
-        <ChatLog socket={socket} connected={connected} messages={messages} />
+        <RoomList rooms={rooms} connected={connected} currentRoom={room} />
+        <ChatLog
+          socket={socket}
+          connected={connected}
+          messages={messages}
+          room={room}
+        />
         <UserList users={users} connected={connected} />
       </div>
       <div className="mt-5">
