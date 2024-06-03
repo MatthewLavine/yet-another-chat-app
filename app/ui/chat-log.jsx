@@ -23,6 +23,7 @@ export default function ChatLog({ socket, connected, messages, room }) {
         {messages.map((message, index) => (
           <Message key={index} message={message} />
         ))}
+        <div ref={messagesEndRef} />
       </div>
     </div>
   );
