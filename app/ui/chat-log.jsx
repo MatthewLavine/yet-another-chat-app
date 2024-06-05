@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Message from "@/app/ui/message";
 
-export default function ChatLog({ socket, connected, messages, room }) {
+export default function ChatLog({ messages, room }) {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import ChatLog from "@/app/ui/chat-log";
+import { lazy, useState, useEffect, Suspense } from "react";
+// import ChatLog from "@/app/ui/chat-log";
 import InputForm from "@/app/ui/input-form";
 import RoomList from "@/app/ui/room-list";
 import UserList from "@/app/ui/user-list";
 import ConnectedIndicator from "@/app/ui/connected-indicator";
+import ChatLogSkeleton from "@/app/ui/chat-log-skeleton";
 
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -14,7 +15,9 @@ const socket = io("http://localhost:4000", {
   autoConnect: false,
 });
 
-export default function Chat({ room }) {
+const ChatLog = lazy(() => import("@/app/ui/chat-log"));
+
+export default function Chat({ room }: { room: string }) {
   const randomUsername = () => {
     return `user-${(Math.random() + 1).toString(36).substring(7)}`;
   };
@@ -131,12 +134,9 @@ export default function Chat({ room }) {
           disconnectFunc={disconnectSocket}
         />
         <RoomList rooms={rooms} connected={connected} currentRoom={room} />
-        <ChatLog
-          socket={socket}
-          connected={connected}
-          messages={messages}
-          room={room}
-        />
+        <Suspense fallback={<ChatLogSkeleton room={room} />}>
+          <ChatLog messages={messages} room={room} />
+        </Suspense>
         <UserList users={users} connected={connected} />
       </div>
       <div className="mt-5">
