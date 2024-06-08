@@ -9,15 +9,16 @@ I made this to learn React and play with websockets.
 - [x] Basic message history persistence
 - [x] Basic UI
 - [ ] Multi-room support
-- [ ] Settings page
-  - [ ] Username
-  - [ ] Hide join/part messages
-  - [ ] Light / Dark theme
-- [ ] Better UI
 - [ ] Username conflict detection
+- [ ] DM support
+- [ ] Better UI
+  - [ ] Proper home page
+  - [ ] Light / Dark theme
+    - [ ] Settings page
+    - [ ] Username
+    - [ ] Hide join/part messages
 - [ ] Real-time redis persistence
 - [ ] Backend code organization
-- [ ] DM support
 
 ## Running
 
