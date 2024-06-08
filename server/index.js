@@ -25,11 +25,13 @@ const redisClient = createClient({
 app.use(cors());
 app.use(morgan("common"));
 
-let rooms = [
+let defaultRooms = [
   { name: "general", deleteWhenEmpty: false },
   { name: "random", deleteWhenEmpty: false },
   { name: "programming", deleteWhenEmpty: false },
 ];
+
+let rooms = [...defaultRooms];
 
 async function initRoom(room) {
   if (!rooms.find((r) => r.name === room)) {
@@ -70,6 +72,7 @@ process.on("SIGINT", () => {
   redisClient.quit();
   process.exit();
 });
+
 let users = new Map();
 
 for (const room of rooms) {
