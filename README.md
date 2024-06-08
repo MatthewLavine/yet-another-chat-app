@@ -1,6 +1,6 @@
 # yet-another-chat-app
 
-I made this to play with websockets.
+I made this to learn React and play with websockets.
 
 # TODO List
 
