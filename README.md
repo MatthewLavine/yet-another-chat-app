@@ -2,15 +2,32 @@
 
 I made this to play with websockets.
 
+# TODO List
+
+- [x] Basic chat room functionality
+- [x] Basic message history retrieveal
+- [x] Basic message history persistence
+- [x] Basic UI
+- [ ] Multi-room support
+- [ ] Settings page
+  - [ ] Username
+  - [ ] Hide join/part messages
+  - [ ] Light / Dark theme
+- [ ] Better UI
+- [ ] Username conflict detection
+- [ ] Real-time redis persistence
+- [ ] Backend code organization
+- [ ] DM support
+
 ## Running
 
 ### With Docker
 
-`$ docker compose up`
+`$ docker compose up -d`
 
 #### Dev mode
 
-`$ docker compose down; docker compose up --watch --build`
+`$ docker compose up --watch --build`
 
 ### Directly
 
