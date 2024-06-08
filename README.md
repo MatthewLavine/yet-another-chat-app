@@ -19,6 +19,7 @@ I made this to learn React and play with websockets.
     - [ ] Hide join/part messages
 - [ ] Real-time redis persistence
 - [ ] Backend code organization
+- [ ] Backend sharding
 
 ## Running
 
