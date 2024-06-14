@@ -11,9 +11,7 @@ import ChatLogSkeleton from "@/app/ui/chat-log-skeleton";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
-const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
-
-const socket = io(`${API_ENDPOINT}`, {
+const socket = io(`${process.env.NEXT_PUBLIC_API_ENDPOINT}`, {
   autoConnect: false,
 });
 
@@ -36,7 +34,10 @@ export default function Chat({ room }: { room: string }) {
   }
 
   function connectSocket() {
-    console.log("connecting to socket at %s", API_ENDPOINT);
+    console.log(
+      "connecting to socket at %s",
+      process.env.NEXT_PUBLIC_API_ENDPOINT,
+    );
     socket.connect();
     setConnected(true);
   }
