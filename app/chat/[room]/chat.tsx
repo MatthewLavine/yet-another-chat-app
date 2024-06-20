@@ -131,24 +131,28 @@ export default function Chat({ room }: { room: string }) {
 
   return (
     <>
-      <div className="flex min-h-72 w-full flex-grow flex-row">
-        <ConnectedIndicator
-          connected={connected}
-          connectFunc={connectSocket}
-          disconnectFunc={disconnectSocket}
-        />
+      <div className="flex h-screen flex-row">
         <RoomList rooms={rooms} connected={connected} currentRoom={room} />
-        <Suspense fallback={<ChatLogSkeleton room={room} />}>
-          <ChatLog messages={messages} room={room} />
-        </Suspense>
-        <UserList users={users} connected={connected} />
-      </div>
-      <div className="mt-5">
-        <InputForm
-          socket={socket}
-          username={username}
-          updateUsername={updateUsername}
-        />
+        <div className="flex flex-grow flex-col">
+          <div className="flex min-h-72 w-full flex-grow flex-row">
+            {/* <ConnectedIndicator
+              connected={connected}
+              connectFunc={connectSocket}
+              disconnectFunc={disconnectSocket}
+            /> */}
+            <div className="flex h-screen flex-grow flex-col">
+              <Suspense fallback={<ChatLogSkeleton room={room} />}>
+                <ChatLog messages={messages} room={room} />
+              </Suspense>
+              <InputForm
+                socket={socket}
+                username={username}
+                updateUsername={updateUsername}
+              />
+            </div>
+            <UserList users={users} connected={connected} />
+          </div>
+        </div>
       </div>
     </>
   );

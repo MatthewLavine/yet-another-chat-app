@@ -2,8 +2,10 @@ import "@/app/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
-import HomeButton from "@/app/ui/home-button";
-import SettingsButton from "@/app/ui/settings-button";
+import MenuBar from "@/app/ui/menu-bar";
+import Rooms from "@/app/ui/rooms";
+import RoomsSkeleton from "@/app/ui/rooms-skeleton";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Yet Another Chat App",
@@ -19,17 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <main>
-          <HomeButton />
-          <SettingsButton />
-          <div className="flex h-screen flex-col items-center justify-between p-12 pt-24">
-            <div className="flex w-full max-w-5xl flex-grow flex-col items-center justify-between gap-5 overflow-hidden font-mono text-sm">
-              <div className="w-full rounded-lg bg-slate-600 p-2 text-center text-white">
-                <h1 className="text-3xl font-medium">Yet Another Chat App</h1>
-              </div>
-              <div className="flex min-h-72 w-full flex-grow flex-col">
-                {children}
-              </div>
-            </div>
+          <div className="flex h-screen flex-none flex-row">
+            <MenuBar />
+            <div className="h-screen flex-grow">{children}</div>
           </div>
         </main>
       </body>

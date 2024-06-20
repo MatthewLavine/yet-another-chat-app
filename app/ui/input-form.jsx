@@ -37,44 +37,48 @@ export default function InputForm({ socket, username, updateUsername }) {
   };
 
   return (
-    <form
-      action={async (formData) => {
-        sendMessage(formData.get("username"), formData.get("message"));
-      }}
-      className="mb-1 ml-5 mr-5 flex flex-row gap-5"
-    >
-      <input
-        name="username"
-        type="text"
-        ref={usernameRef}
-        placeholder="Username"
-        autoComplete="off"
-        defaultValue={username}
-        onChange={(e) => updateUsernameDebounced(e.target.value)}
-        className="rounded-lg border border-blue-500 p-2"
-      />
-      <input
-        name="message"
-        type="text"
-        ref={inputRef}
-        placeholder="Type a message..."
-        autoFocus
-        autoComplete="off"
-        className="grow rounded-lg border border-blue-500 p-2"
-      />
-      <button
-        type="submit"
-        className="flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-      >
-        Send
-      </button>
-      <button
-        type="button"
-        onClick={clearHistory()}
-        className="flex h-10 items-center rounded-lg bg-red-500 px-4 text-sm font-medium text-white transition-colors hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-      >
-        Clear History
-      </button>
-    </form>
+    <>
+      <div className="bg-slate-200 p-5">
+        <form
+          action={async (formData) => {
+            sendMessage(formData.get("username"), formData.get("message"));
+          }}
+          className="flex flex-row gap-4"
+        >
+          <input
+            name="username"
+            type="text"
+            ref={usernameRef}
+            placeholder="Username"
+            autoComplete="off"
+            defaultValue={username}
+            onChange={(e) => updateUsernameDebounced(e.target.value)}
+            className="w-40 rounded-lg border border-blue-500 p-2"
+          />
+          <input
+            name="message"
+            type="text"
+            ref={inputRef}
+            placeholder="Type a message..."
+            autoFocus
+            autoComplete="off"
+            className="grow rounded-lg border border-blue-500 p-2"
+          />
+          <button
+            type="submit"
+            className="flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+          >
+            Send
+          </button>
+          {/* <button
+            type="button"
+            onClick={clearHistory()}
+            className="flex h-10 items-center rounded-lg bg-red-500 px-4 text-sm font-medium text-white transition-colors hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+          >
+            Clear History
+          </button> */}
+        </form>
+      </div>
+    </>
   );
 }

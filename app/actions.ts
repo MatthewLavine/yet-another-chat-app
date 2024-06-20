@@ -6,7 +6,6 @@ export async function getRooms() {
   noStore();
 
   try {
-    // const res = await fetch("http://localhost:4000/api/rooms");
     const res = await fetch("http://backend:4000/api/rooms");
     if (!res.ok) {
       throw new Error("Unexpected status code: " + res.statusText);

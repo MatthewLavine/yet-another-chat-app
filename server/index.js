@@ -12,7 +12,11 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "https://yet-another-chat.app"],
+    origin: [
+      "http://localhost:3000",
+      "http://fedora.lan:3000",
+      "https://yet-another-chat.app",
+    ],
   },
 });
 const redisClient = createClient({

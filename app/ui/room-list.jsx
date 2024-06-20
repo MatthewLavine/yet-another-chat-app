@@ -8,15 +8,15 @@ export default function RoomList({ rooms, connected, currentRoom }) {
   let output;
   if (rooms.length === 0) {
     if (connected) {
-      output = <div>Loading...</div>;
-    } else {
-      output = <div>Disconnected.</div>;
+      output = <div className="p-2">Loading...</div>;
+      // } else {
+      //   output = <div className="p-2">Disconnected.</div>;
     }
   } else {
     output = rooms.map((room, index) => (
       <div
         key={index}
-        className={clsx("mt-1", currentRoom === room.name && "font-bold")}
+        className={clsx("p-2", currentRoom === room.name && "font-bold")}
       >
         <Link href={`/chat/${room.name}`}>{room.name}</Link>
       </div>
@@ -24,14 +24,14 @@ export default function RoomList({ rooms, connected, currentRoom }) {
   }
 
   return (
-    <div className="mr-5 hidden min-h-72 w-40 flex-col rounded-lg md:flex">
-      <div className="rounded-t-lg bg-slate-700 pb-2 pl-5 pr-5 pt-2 text-slate-100">
-        <h2 className="text-lg">Rooms ({rooms.length})</h2>
-      </div>
-      <div className="flex flex-grow flex-col rounded-b-lg bg-slate-600 text-slate-100">
-        <div className="flex-grow pb-2 pl-5 pr-5 pt-2">{output}</div>
+    <>
+      <div className="flex w-60 flex-col bg-slate-100">
+        <div className="flex-grow p-5">
+          <h2 className="text-lg">Rooms ({rooms.length})</h2>
+          <div className="flex-grow">{output}</div>
+        </div>
         <CreateRoomForm />
       </div>
-    </div>
+    </>
   );
 }
