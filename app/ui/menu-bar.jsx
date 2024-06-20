@@ -17,7 +17,11 @@ export default function MenuBar() {
         <Link href="/settings" className="p-5">
           <FontAwesomeIcon icon={faGear} />
         </Link>
-        <Link href="" className="p-5">
+        <Link
+          href="https://github.com/MatthewLavine/yet-another-chat-app"
+          target="_blank"
+          className="p-5"
+        >
           <FontAwesomeIcon icon={faGithub} />
         </Link>
       </div>
