@@ -141,9 +141,9 @@ export default function Chat({ room }: { room: string }) {
               disconnectFunc={disconnectSocket}
             /> */}
             <div className="flex h-screen flex-grow flex-col">
-              <Suspense fallback={<ChatLogSkeleton room={room} />}>
-                <ChatLog messages={messages} room={room} />
-              </Suspense>
+              {/* <Suspense fallback={<ChatLogSkeleton room={room} />}> */}
+              <ChatLog messages={messages} room={room} />
+              {/* </Suspense> */}
               <InputForm
                 socket={socket}
                 username={username}
