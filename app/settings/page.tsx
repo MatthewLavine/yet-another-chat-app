@@ -12,22 +12,24 @@ export default function Page() {
 
   return (
     <>
-      <p>Settings</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Pick a username:
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            defaultValue={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <button type="submit" className="rounded-lg bg-green-500 p-2">
-          Save
-        </button>
-      </form>
+      <div className="h-full bg-slate-100 dark:bg-slate-700 dark:text-white">
+        <p>Settings</p>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Pick a username:
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              defaultValue={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <button type="submit" className="rounded-lg bg-green-500 p-2">
+            Save
+          </button>
+        </form>
+      </div>
     </>
   );
 }

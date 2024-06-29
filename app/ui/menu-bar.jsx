@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 import {
@@ -14,7 +15,28 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function MenuBar() {
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <>
+        <div className="flex w-16 flex-col bg-slate-200 text-center text-2xl dark:bg-slate-800 dark:text-white"></div>
+      </>
+    );
+  }
+
+  const toggleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
 
   return (
     <>
@@ -35,11 +57,8 @@ export default function MenuBar() {
         >
           <FontAwesomeIcon icon={faGithub} />
         </Link>
-        <button onClick={() => setTheme("light")} className="p-5">
-          <FontAwesomeIcon icon={faSun} />
-        </button>
-        <button onClick={() => setTheme("dark")} className="p-5">
-          <FontAwesomeIcon icon={faMoon} />
+        <button onClick={() => toggleTheme()} className="p-5">
+          <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
         </button>
       </div>
     </>
