@@ -17,7 +17,7 @@ export default function UserList({ users, connected }) {
   }
 
   return (
-    <div className="flex w-40 flex-col bg-slate-100 p-5">
+    <div className="hidden w-40 flex-col bg-slate-100 p-5 md:flex">
       <h2 className="text-lg">Users ({users.length})</h2>
       <div className="flex-grow">{output}</div>
     </div>
