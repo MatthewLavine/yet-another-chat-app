@@ -18,7 +18,7 @@ export default function MenuBar() {
 
   return (
     <>
-      <div className="flex w-16 flex-none flex-col bg-slate-200 dark:bg-slate-800 dark:text-white">
+      <div className="flex w-16 flex-col bg-slate-200 text-center text-2xl dark:bg-slate-800 dark:text-white">
         <Link href="/" className="p-5">
           <FontAwesomeIcon icon={faY} />
         </Link>
