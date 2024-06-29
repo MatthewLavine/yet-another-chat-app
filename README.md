@@ -11,13 +11,13 @@ I made this to learn React and play with websockets.
 - [ ] Multi-room support
 - [ ] Username conflict detection
 - [ ] DM support
-- [ ] Better UI
+- [x] Better UI
   - [ ] Proper home page
-  - [ ] Light / Dark theme
-    - [ ] Settings page
-    - [ ] Username
+  - [x] Light / Dark theme
+    - [x] Settings page
+    - [x] Username
     - [ ] Hide join/part messages
-- [ ] Real-time redis persistence
+- [x] Real-time redis persistence
 - [ ] Backend code organization
 - [ ] Backend sharding
 
