@@ -12,8 +12,8 @@ export default function Page() {
 
   return (
     <>
-      <div className="h-full bg-slate-100 dark:bg-slate-700 dark:text-white">
-        <p>Settings</p>
+      <div className="h-full bg-slate-100 p-5 dark:bg-slate-700 dark:text-white">
+        <p className="text-lg">Settings</p>
         <form onSubmit={handleSubmit}>
           <label>
             Pick a username:
