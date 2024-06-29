@@ -5,7 +5,7 @@ export default function Message({ message }) {
         [{message.time}]&nbsp;
       </span>
       <span className="text-green-700 dark:text-green-400">
-        &lt;{message.sender}&gt;
+        &lt;{message.sender}&gt;&nbsp;
       </span>
       <span className="text-slate-950 dark:text-slate-50">
         {message.content}
