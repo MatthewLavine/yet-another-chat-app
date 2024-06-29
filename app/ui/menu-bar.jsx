@@ -41,25 +41,29 @@ export default function MenuBar() {
   return (
     <>
       <div className="flex w-16 flex-col bg-slate-200 text-center text-2xl dark:bg-slate-800 dark:text-white">
-        <Link href="/" className="p-5">
-          <FontAwesomeIcon icon={faY} />
-        </Link>
-        <Link href="/" className="p-5">
-          <FontAwesomeIcon icon={faHouse} />
-        </Link>
-        <Link href="/settings" className="p-5">
-          <FontAwesomeIcon icon={faGear} />
-        </Link>
-        <Link
-          href="https://github.com/MatthewLavine/yet-another-chat-app"
-          target="_blank"
-          className="p-5"
-        >
-          <FontAwesomeIcon icon={faGithub} />
-        </Link>
-        <button onClick={() => toggleTheme()} className="p-5">
-          <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
-        </button>
+        <div className="flex flex-grow flex-col">
+          <Link href="/" className="p-5">
+            <FontAwesomeIcon icon={faY} />
+          </Link>
+          <Link href="/" className="p-5">
+            <FontAwesomeIcon icon={faHouse} />
+          </Link>
+          <Link href="/settings" className="p-5">
+            <FontAwesomeIcon icon={faGear} />
+          </Link>
+          <button onClick={() => toggleTheme()} className="p-5">
+            <FontAwesomeIcon icon={theme === "light" ? faMoon : faSun} />
+          </button>
+        </div>
+        <div className="flex flex-col">
+          <Link
+            href="https://github.com/MatthewLavine/yet-another-chat-app"
+            target="_blank"
+            className="p-5"
+          >
+            <FontAwesomeIcon icon={faGithub} />
+          </Link>
+        </div>
       </div>
     </>
   );
