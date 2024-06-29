@@ -38,14 +38,14 @@ export default function InputForm({ socket, username, updateUsername }) {
 
   return (
     <>
-      <div className="bg-slate-200 p-5">
+      <div className="bg-slate-200">
         <form
           action={async (formData) => {
-            sendMessage(formData.get("username"), formData.get("message"));
+            sendMessage(username, formData.get("message"));
           }}
-          className="flex flex-row gap-4"
+          className="flex flex-row"
         >
-          <input
+          {/* <input
             name="username"
             type="text"
             ref={usernameRef}
@@ -53,8 +53,8 @@ export default function InputForm({ socket, username, updateUsername }) {
             autoComplete="off"
             defaultValue={username}
             onChange={(e) => updateUsernameDebounced(e.target.value)}
-            className="w-40 rounded-lg border border-blue-500 p-2"
-          />
+            className="w-40 border p-3"
+          /> */}
           <input
             name="message"
             type="text"
@@ -62,18 +62,18 @@ export default function InputForm({ socket, username, updateUsername }) {
             placeholder="Type a message..."
             autoFocus
             autoComplete="off"
-            className="grow rounded-lg border border-blue-500 p-2"
+            className="grow border p-3 focus:outline-none"
           />
           <button
             type="submit"
-            className="flex h-10 items-center rounded-lg bg-blue-500 px-4 text-sm font-medium text-white transition-colors hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:bg-blue-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            className="flex items-center bg-blue-500 p-3 text-white transition-colors hover:bg-blue-400"
           >
             Send
           </button>
           {/* <button
             type="button"
             onClick={clearHistory()}
-            className="flex h-10 items-center rounded-lg bg-red-500 px-4 text-sm font-medium text-white transition-colors hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            className="flex items-center bg-red-500 p-3 text-white transition-colors hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:bg-red-600 aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
           >
             Clear History
           </button> */}
