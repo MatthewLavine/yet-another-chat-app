@@ -137,7 +137,7 @@ io.on("connection", async (socket) => {
     logUsersInRoom(room);
     io.to(room).emit("chat message", {
       id: randomUUID(),
-      time: new Date().toISOString().split("T")[1],
+      time: new Date().toJSON(),
       sender: "SYSTEM",
       content: `🔥: ${user} left the room`,
     });
@@ -153,7 +153,7 @@ io.on("connection", async (socket) => {
     user = newName;
     io.to(room).emit("chat message", {
       id: randomUUID(),
-      time: new Date().toISOString().split("T")[1],
+      time: new Date().toJSON(),
       sender: "SYSTEM",
       content: `🔖: ${oldName} changed their name to ${newName}`,
     });
@@ -185,7 +185,7 @@ io.on("connection", async (socket) => {
 
     io.to(room).emit("chat message", {
       id: randomUUID(),
-      time: new Date().toISOString().split("T")[1],
+      time: new Date().toJSON(),
       sender: "SYSTEM",
       content: `🚪: ${user} joined the room`,
     });

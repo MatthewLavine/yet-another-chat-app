@@ -22,7 +22,7 @@ export default function InputForm({ socket, username, updateUsername }) {
     }
     console.log("sending message: %s", message);
     socket.emit("chat message", {
-      time: new Date().toISOString().split("T")[1],
+      time: new Date().toJSON(),
       sender: sender,
       content: message,
     });

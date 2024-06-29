@@ -1,8 +1,11 @@
 export default function Message({ message }) {
+  const date = new Date(message.time);
+  const prettyDate = date.toLocaleTimeString();
+
   return (
-    <div class="hyphens-auto text-wrap break-normal">
+    <div className="hyphens-auto text-wrap break-normal">
       <span className="text-stone-600 dark:text-stone-400">
-        [{message.time}]&nbsp;
+        [{prettyDate}]&nbsp;
       </span>
       <span className="text-green-700 dark:text-green-400">
         &lt;{message.sender}&gt;&nbsp;

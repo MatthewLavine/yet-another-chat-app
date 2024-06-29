@@ -65,7 +65,7 @@ export default function Chat({ room }: { room: string }) {
 
       addMessage(
         uuidv4(),
-        new Date().toISOString().split("T")[1],
+        new Date().toJSON(),
         "SYSTEM",
         `🔥: ${username} left the chat`,
       );
