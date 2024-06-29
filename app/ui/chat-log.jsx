@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Message from "@/app/ui/message";
+import DateSeparator from "@/app/ui/date-separator";
 
 export default function ChatLog({ messages, room }) {
   const messagesEndRef = useRef(null);
@@ -37,14 +38,7 @@ export default function ChatLog({ messages, room }) {
 
   const output = messagesWithDaySeparators.map((item, index) => {
     if (item.type === "day") {
-      return (
-        <div
-          key={index}
-          className="text-center text-xs text-stone-600 dark:text-stone-400"
-        >
-          {item.day}
-        </div>
-      );
+      return <DateSeparator key={index} date={item.day} />;
     } else {
       return <Message key={index} message={item.message} />;
     }
