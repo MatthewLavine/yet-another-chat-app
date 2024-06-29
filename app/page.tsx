@@ -7,9 +7,12 @@ import { Suspense } from "react";
 export default async function Page() {
   return (
     <>
-      <Suspense fallback={<RoomsSkeleton />}>
-        <Rooms />
-      </Suspense>
+      <div className="flex flex-row">
+        <Suspense fallback={<RoomsSkeleton />}>
+          <Rooms />
+        </Suspense>
+        <div className="h-screen grow bg-slate-200 dark:bg-slate-800"></div>
+      </div>
     </>
   );
 }

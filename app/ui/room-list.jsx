@@ -25,7 +25,7 @@ export default function RoomList({ rooms, connected, currentRoom }) {
 
   return (
     <>
-      <div className="flex w-60 flex-col bg-slate-100">
+      <div className="flex w-60 flex-col bg-slate-100 dark:bg-slate-700 dark:text-white">
         <div className="flex-grow p-5">
           <h2 className="text-lg">Rooms ({rooms.length})</h2>
           <div className="flex-grow">{output}</div>

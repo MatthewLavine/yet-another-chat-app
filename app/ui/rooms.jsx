@@ -6,7 +6,7 @@ export default async function Rooms() {
 
   return (
     <>
-      <div className="flex h-screen w-60 flex-col bg-slate-100 p-5">
+      <div className="flex h-screen w-60 flex-col bg-slate-100 p-5 dark:bg-slate-700 dark:text-white">
         <h2 className="text-lg">Rooms ({rooms.length})</h2>
         {rooms.map((room, index) => (
           <div key={index} className="p-2">
