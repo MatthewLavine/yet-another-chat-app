@@ -1,3 +1,5 @@
+"use client";
+
 function generateRandomUsername() {
   return `user-${(Math.random() + 1).toString(36).substring(7)}`;
 }
