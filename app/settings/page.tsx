@@ -1,13 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { initOrFetchUsername, saveUsername } from "@/app/util";
 
 export default function Page() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(initOrFetchUsername());
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("username", username);
+
+    if (!username) {
+      console.log("Username cannot be empty");
+      return;
+    }
+
+    console.log("new username", username);
+
+    saveUsername(username);
   }
 
   return (

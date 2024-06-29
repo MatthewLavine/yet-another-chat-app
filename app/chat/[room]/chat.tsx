@@ -7,6 +7,7 @@ import RoomList from "@/app/ui/room-list";
 import UserList from "@/app/ui/user-list";
 import ConnectedIndicator from "@/app/ui/connected-indicator";
 import ChatLogSkeleton from "@/app/ui/chat-log-skeleton";
+import { initOrFetchUsername } from "@/app/util";
 
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -18,11 +19,7 @@ const socket = io(`${process.env.NEXT_PUBLIC_API_ENDPOINT}`, {
 const ChatLog = lazy(() => import("@/app/ui/chat-log"));
 
 export default function Chat({ room }: { room: string }) {
-  const randomUsername = () => {
-    return `user-${(Math.random() + 1).toString(36).substring(7)}`;
-  };
-
-  const [username, setUsername] = useState(randomUsername());
+  const [username, setUsername] = useState(initOrFetchUsername());
   const [rooms, setRooms] = useState<any>([]);
   const [users, setUsers] = useState<any>([]);
   const [messages, setMessages] = useState<any>([]);
