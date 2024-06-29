@@ -37,6 +37,8 @@ services:
       - backend
   database:
     image: redis/redis-stack:latest
+    environment:
+      - REDIS_ARGS=--save 60 1000 --appendonly yes
     ports:
       - 6379:6379
       - 8001:8001
