@@ -14,25 +14,28 @@ export default function ChatLog({ messages, room }) {
     scrollToBottom();
   }, [messages]);
 
-  let messagesInDay = [];
-  let lastMessageDay = null;
+  let messagesWithDaySeparators = [];
+  let previousMessageDate = null;
 
   messages.forEach((message) => {
     const date = new Date(message.time);
-    const messageDay = date.getDay();
-    if (lastMessageDay === null) {
-      messagesInDay.push({ type: "day", day: date.toDateString() });
+    const messageDate = date.toDateString();
+    if (previousMessageDate === null) {
+      messagesWithDaySeparators.push({ type: "day", day: messageDate });
     }
-    if (messageDay !== lastMessageDay) {
-      if (messagesInDay.length > 0) {
-        messagesInDay.push({ type: "day", day: lastMessageDay });
+    if (messageDate !== previousMessageDate) {
+      if (messagesWithDaySeparators.length > 0) {
+        messagesWithDaySeparators.push({
+          type: "day",
+          day: previousMessageDate,
+        });
       }
-      lastMessageDay = messageDay;
+      previousMessageDate = messageDate;
     }
-    messagesInDay.push({ type: "message", message });
+    messagesWithDaySeparators.push({ type: "message", message });
   });
 
-  const output = messagesInDay.map((item, index) => {
+  const output = messagesWithDaySeparators.map((item, index) => {
     if (item.type === "day") {
       return (
         <div
