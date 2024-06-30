@@ -3,11 +3,7 @@
 export default function UserList({ users, connected }) {
   let output;
   if (users.length === 0) {
-    if (connected) {
-      output = <div>Loading...</div>;
-    } else {
-      output = <div>Disconnected.</div>;
-    }
+    output = <div className="p-2">Loading...</div>;
   } else {
     output = users.map((user, index) => (
       <div key={index} className="p-2">

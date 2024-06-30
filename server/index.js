@@ -170,6 +170,10 @@ io.on("connection", async (socket) => {
 
     socket.join(room);
     console.log("🚪: user joined room %s: %s", room, user);
+
+    // console.log("sleeping for 2s to test client loading skeletons");
+    // await new Promise((r) => setTimeout(r, 5000));
+
     await addUserToRoom(room, { id: socket.id, name: user });
     logUsersInRoom(room);
 

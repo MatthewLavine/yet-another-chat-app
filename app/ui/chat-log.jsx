@@ -31,13 +31,19 @@ export default function ChatLog({ messages, room }) {
     messagesWithDaySeparators.push({ type: "message", message });
   });
 
-  const output = messagesWithDaySeparators.map((item, index) => {
-    if (item.type === "day") {
-      return <DateSeparator key={index} date={item.day} />;
-    } else {
-      return <Message key={index} message={item.message} />;
-    }
-  });
+  let output;
+
+  if (messagesWithDaySeparators.length === 0) {
+    // output = <div className="p-2">Loading...</div>;
+  } else {
+    output = messagesWithDaySeparators.map((item, index) => {
+      if (item.type === "day") {
+        return <DateSeparator key={index} date={item.day} />;
+      } else {
+        return <Message key={index} message={item.message} />;
+      }
+    });
+  }
 
   return (
     <div className="flex min-h-64 flex-shrink flex-grow flex-col overflow-hidden">

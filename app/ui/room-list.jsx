@@ -7,11 +7,7 @@ import CreateRoomForm from "@/app/ui/create-room-form";
 export default function RoomList({ rooms, connected, currentRoom }) {
   let output;
   if (rooms.length === 0) {
-    if (connected) {
-      output = <div className="p-2">Loading...</div>;
-      // } else {
-      //   output = <div className="p-2">Disconnected.</div>;
-    }
+    output = <div className="p-2">Loading...</div>;
   } else {
     output = rooms.map((room, index) => (
       <div
