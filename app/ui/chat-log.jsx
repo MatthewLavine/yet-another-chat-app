@@ -21,18 +21,13 @@ export default function ChatLog({ messages, room }) {
   messages.forEach((message) => {
     const date = new Date(message.time);
     const messageDate = date.toDateString();
-    if (previousMessageDate === null) {
-      messagesWithDaySeparators.push({ type: "day", day: messageDate });
-    }
     if (messageDate !== previousMessageDate) {
-      if (messagesWithDaySeparators.length > 0) {
-        messagesWithDaySeparators.push({
-          type: "day",
-          day: previousMessageDate,
-        });
-      }
-      previousMessageDate = messageDate;
+      messagesWithDaySeparators.push({
+        type: "day",
+        day: messageDate,
+      });
     }
+    previousMessageDate = messageDate;
     messagesWithDaySeparators.push({ type: "message", message });
   });
 
