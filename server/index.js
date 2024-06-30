@@ -33,9 +33,18 @@ let defaultRooms = [
   { name: "general", deleteWhenEmpty: false },
   { name: "random", deleteWhenEmpty: false },
   { name: "programming", deleteWhenEmpty: false },
+  { name: "news", deleteWhenEmpty: false },
+  { name: "social", deleteWhenEmpty: false },
+  { name: "linux", deleteWhenEmpty: false },
 ];
 
 let rooms = [...defaultRooms];
+
+function sortRooms() {
+  rooms.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+sortRooms();
 
 async function initRoom(room) {
   if (!rooms.find((r) => r.name === room)) {
@@ -46,6 +55,8 @@ async function initRoom(room) {
   if (!messages) {
     await redisClient.json.set(room, "$", []);
   }
+
+  sortRooms();
 }
 
 async function maybeDeleteRoom(room) {
@@ -54,6 +65,8 @@ async function maybeDeleteRoom(room) {
     users.delete(room);
     rooms = rooms.filter((r) => r.name !== room);
     console.log("🚪: deleted room %s", room);
+
+    sortRooms();
   }
 }
 
