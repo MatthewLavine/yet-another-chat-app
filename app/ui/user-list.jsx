@@ -13,7 +13,7 @@ export default function UserList({ users, connected }) {
   }
 
   return (
-    <div className="hidden w-40 shrink-0 flex-col bg-slate-100 p-5 dark:bg-slate-700 dark:text-white md:flex">
+    <div className="hidden w-40 shrink-0 flex-col bg-slate-100 p-5 dark:bg-slate-700 dark:text-white lg:flex">
       <h2 className="text-lg">Users ({users.length})</h2>
       <div className="flex-grow">{output}</div>
     </div>
