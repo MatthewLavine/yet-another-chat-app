@@ -4,10 +4,10 @@ export default function Message({ message }) {
 
   return (
     <div className="hyphens-auto text-wrap break-normal">
-      <span className="text-stone-600 dark:text-stone-400">
+      <span className="cursor-default text-stone-600 dark:text-stone-400">
         [{prettyDate}]&nbsp;
       </span>
-      <span className="text-green-700 dark:text-green-400">
+      <span className="cursor-pointer text-green-700 dark:text-green-400">
         &lt;{message.sender}&gt;&nbsp;
       </span>
       <span className="text-slate-950 dark:text-slate-50">

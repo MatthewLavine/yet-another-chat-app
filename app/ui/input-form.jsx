@@ -62,7 +62,7 @@ export default function InputForm({ socket, username, updateUsername }) {
             placeholder="Type a message..."
             autoFocus
             autoComplete="off"
-            className="grow p-3 focus:outline-none dark:text-white"
+            className="grow bg-slate-100 p-3 focus:outline-none dark:bg-slate-700 dark:text-white"
           />
           <button
             type="submit"

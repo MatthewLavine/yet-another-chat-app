@@ -27,7 +27,7 @@ export default function CreateRoomForm() {
           placeholder="Room name..."
           ref={inputRef}
           autoComplete="off"
-          className="p-3 text-black focus:outline-none dark:text-white"
+          className="bg-slate-200 p-3 text-black focus:outline-none dark:bg-slate-800 dark:text-white"
         />
         <button
           type="submit"
