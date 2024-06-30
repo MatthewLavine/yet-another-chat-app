@@ -14,7 +14,9 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:3000",
+      "http://localhost:3001",
       "http://fedora.lan:3000",
+      "http://fedora.lan:3001",
       "https://yet-another-chat.app",
     ],
   },
