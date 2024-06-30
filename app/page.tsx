@@ -1,16 +1,16 @@
-"use server";
+"use client";
 
-import Rooms from "@/app/ui/rooms";
-import RoomsSkeleton from "@/app/ui/rooms-skeleton";
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-export default async function Page() {
+const Rooms = dynamic(() => import("@/app/ui/rooms"), {
+  ssr: false,
+});
+
+export default function Page() {
   return (
     <>
       <div className="flex flex-row">
-        <Suspense fallback={<RoomsSkeleton />}>
-          <Rooms />
-        </Suspense>
+        <Rooms />
         <div className="h-screen grow bg-slate-200 dark:bg-slate-800"></div>
       </div>
     </>
