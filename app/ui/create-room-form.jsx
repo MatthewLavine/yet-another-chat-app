@@ -6,6 +6,7 @@ export default function CreateRoomForm() {
 
   const createRoom = (room) => {
     if (room === "") {
+      inputRef.current.focus();
       return;
     }
     console.log("creating room: %s", room);
