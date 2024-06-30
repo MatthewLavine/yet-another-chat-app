@@ -39,28 +39,37 @@ export default function Settings() {
   return (
     <>
       <div className="h-full bg-slate-100 p-5 dark:bg-slate-700 dark:text-white">
-        <p className="text-lg">Settings</p>
+        <p className="cursor-default text-lg">Settings</p>
         <form onSubmit={(e) => e.preventDefault()}>
-          <label>
-            Pick a username:&nbsp;
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              defaultValue={username}
-              onChange={handleUsernameChangeDebounced}
-            />
-          </label>
-        </form>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>
-            Hide Join/Part messages:&nbsp;
-            <input
-              type="checkbox"
-              onChange={(e) => handleHideJoinPartChange(e)}
-              checked={hideJoinPart}
-            />
-          </label>
+          <p className="cursor-default py-2 text-sm font-medium">General</p>
+          <div className="p-2">
+            <label>
+              Pick a username:&nbsp;
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                defaultValue={username}
+                onChange={handleUsernameChangeDebounced}
+              />
+            </label>
+          </div>
+          <div className="p-2">
+            <label>
+              Hide Join/Part messages:&nbsp;
+              <input
+                type="checkbox"
+                onChange={(e) => handleHideJoinPartChange(e)}
+                checked={hideJoinPart}
+              />
+            </label>
+          </div>
+          <p className="cursor-default py-2 text-sm font-medium">
+            Notifications
+          </p>
+          <p className="cursor-default p-2">TODO</p>
+          <p className="cursor-default py-2 text-sm font-medium">Theme</p>
+          <p className="cursor-default p-2">TODO</p>
         </form>
       </div>
     </>
