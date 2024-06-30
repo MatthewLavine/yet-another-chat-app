@@ -1,10 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { InitOrFetchUsername, saveUsername } from "@/app/util";
+import {
+  InitOrFetchJoinPartPreference,
+  InitOrFetchUsername,
+  saveJoinPartPreference,
+  saveUsername,
+} from "@/app/util";
 
 export default function Settings() {
   const [username, setUsername] = useState(InitOrFetchUsername());
+  const [hideJoinPart, setHideJoinPart] = useState(
+    InitOrFetchJoinPartPreference(),
+  );
+
+  const handleHideJoinPartChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setHideJoinPart(event.target.checked);
+    saveJoinPartPreference(event.target.checked);
+  };
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -37,6 +52,16 @@ export default function Settings() {
           <button type="submit" className="rounded-lg bg-green-500 p-2">
             Save
           </button>
+        </form>
+        <form>
+          <label>
+            Hide Join/Part messages:&nbsp;
+            <input
+              type="checkbox"
+              onChange={(e) => handleHideJoinPartChange(e)}
+              checked={hideJoinPart}
+            />
+          </label>
         </form>
       </div>
     </>

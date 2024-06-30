@@ -18,6 +18,19 @@ export function saveUsername(newUsername: string) {
   localStorage.setItem("username", newUsername);
 }
 
+export function InitOrFetchJoinPartPreference() {
+  let storedPreference = localStorage.getItem("hideJoinPart");
+  if (storedPreference) {
+    return storedPreference === "true";
+  }
+  localStorage.setItem("hideJoinPart", "false");
+  return false;
+}
+
+export function saveJoinPartPreference(hideJoinPart: boolean) {
+  localStorage.setItem("hideJoinPart", hideJoinPart.toString());
+}
+
 export function InitOrFetchStarredRooms() {
   let starredRooms = localStorage.getItem("starredRooms");
   if (starredRooms) {

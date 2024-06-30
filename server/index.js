@@ -5,6 +5,7 @@ import { createServer } from "http";
 import { createClient } from "redis";
 import { randomUUID } from "crypto";
 import morgan from "morgan";
+import { type } from "os";
 
 const PORT = 4000;
 
@@ -154,6 +155,7 @@ io.on("connection", async (socket) => {
       id: randomUUID(),
       time: new Date().toJSON(),
       sender: "SYSTEM",
+      type: "part",
       content: `🔥: ${user} left the room`,
     });
     io.to(room).emit("users", users.get(room));
@@ -206,6 +208,7 @@ io.on("connection", async (socket) => {
       id: randomUUID(),
       time: new Date().toJSON(),
       sender: "SYSTEM",
+      type: "join",
       content: `🚪: ${user} joined the room`,
     });
     io.to(room).emit("users", users.get(room));

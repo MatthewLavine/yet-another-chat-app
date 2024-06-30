@@ -68,6 +68,7 @@ export default function Chat({ room }: { room: string }) {
         uuidv4(),
         new Date().toJSON(),
         "SYSTEM",
+        "part",
         `🔥: ${username} left the chat`,
       );
 
@@ -77,7 +78,7 @@ export default function Chat({ room }: { room: string }) {
 
     socket.on("chat message", (msg: any) => {
       console.log("received message: %o", msg);
-      addMessage(msg.id, msg.time, msg.sender, msg.content);
+      addMessage(msg.id, msg.time, msg.sender, msg.type, msg.content);
     });
 
     socket.on("rooms", (rooms: any) => {
@@ -108,12 +109,14 @@ export default function Chat({ room }: { room: string }) {
     id: string,
     time: string,
     sender: string,
+    type: string,
     message: string,
   ) {
     const newMessage = {
       id: id,
       time: time,
       sender: sender,
+      type: type,
       content: message,
     };
     setMessages((existingMessages: any) => {

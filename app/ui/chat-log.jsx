@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Message from "@/app/ui/message";
 import DateSeparator from "@/app/ui/date-separator";
+import { InitOrFetchJoinPartPreference } from "@/app/util";
 
 export default function ChatLog({ messages, room }) {
+  const [hideJoinPart, setHideJoinPart] = useState(
+    InitOrFetchJoinPartPreference(),
+  );
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -14,6 +18,13 @@ export default function ChatLog({ messages, room }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  messages = messages.filter((message) => {
+    if (message.type === "join" || message.type === "part") {
+      return !hideJoinPart;
+    }
+    return true;
+  });
 
   let messagesWithDaySeparators = [];
   let previousMessageDate = null;
