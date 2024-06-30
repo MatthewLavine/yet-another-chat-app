@@ -4,7 +4,7 @@ export default function Message({ message }) {
 
   return (
     <div className="hyphens-auto text-wrap break-normal">
-      <span className="cursor-default text-stone-600 dark:text-stone-400">
+      <span className="hidden cursor-default text-stone-600 dark:text-stone-400 md:inline">
         [{prettyDate}]&nbsp;
       </span>
       <span className="cursor-pointer text-green-700 dark:text-green-400">
