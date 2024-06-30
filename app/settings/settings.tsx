@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import {
   InitOrFetchJoinPartPreference,
   InitOrFetchUsername,
@@ -21,39 +22,37 @@ export default function Settings() {
     saveJoinPartPreference(event.target.checked);
   };
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    if (!username) {
-      console.log("Username cannot be empty");
-      return;
-    }
-
-    console.log("new username", username);
-
-    saveUsername(username);
-  }
+  const handleUsernameChangeDebounced = useDebouncedCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newUsername = event.target.value;
+      console.log("new username", newUsername);
+      if (!newUsername) {
+        console.log("Username cannot be empty");
+        return;
+      }
+      setUsername(newUsername);
+      saveUsername(newUsername);
+    },
+    500,
+  );
 
   return (
     <>
       <div className="h-full bg-slate-100 p-5 dark:bg-slate-700 dark:text-white">
         <p className="text-lg">Settings</p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <label>
-            Pick a username:
+            Pick a username:&nbsp;
             <input
               type="text"
               name="username"
               placeholder="Username"
               defaultValue={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={handleUsernameChangeDebounced}
             />
           </label>
-          <button type="submit" className="rounded-lg bg-green-500 p-2">
-            Save
-          </button>
         </form>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <label>
             Hide Join/Part messages:&nbsp;
             <input
