@@ -1,19 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { useDebouncedCallback } from "use-debounce";
 
-export default function InputForm({ socket, username, updateUsername }) {
-  const usernameRef = useRef(null);
+export default function InputForm({ socket, username }) {
   const inputRef = useRef(null);
-
-  const updateUsernameDebounced = useDebouncedCallback((newUsername) => {
-    if (newUsername === "") {
-      usernameRef.current.value = username;
-      return;
-    }
-    updateUsername(newUsername);
-  }, 500);
 
   const sendMessage = (sender, message) => {
     if (sender === "" || message === "") {
@@ -45,16 +35,6 @@ export default function InputForm({ socket, username, updateUsername }) {
           }}
           className="flex flex-row"
         >
-          {/* <input
-            name="username"
-            type="text"
-            ref={usernameRef}
-            placeholder="Username"
-            autoComplete="off"
-            defaultValue={username}
-            onChange={(e) => updateUsernameDebounced(e.target.value)}
-            className="w-40 border p-3"
-          /> */}
           <input
             name="message"
             type="text"

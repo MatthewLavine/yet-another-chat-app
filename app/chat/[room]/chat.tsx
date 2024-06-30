@@ -7,7 +7,7 @@ import RoomList from "@/app/ui/room-list";
 import UserList from "@/app/ui/user-list";
 import ConnectedIndicator from "@/app/ui/connected-indicator";
 import ChatLogSkeleton from "@/app/ui/chat-log-skeleton";
-import { InitOrFetchUsername } from "@/app/util";
+import { InitOrFetchUsername, saveUsername } from "@/app/util";
 
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -27,6 +27,7 @@ export default function Chat({ room }: { room: string }) {
 
   function updateUsername(newUsername: string) {
     setUsername(newUsername);
+    saveUsername(username);
     socket.emit("namechange", newUsername);
   }
 
@@ -141,11 +142,7 @@ export default function Chat({ room }: { room: string }) {
               {/* <Suspense fallback={<ChatLogSkeleton room={room} />}> */}
               <ChatLog messages={messages} room={room} />
               {/* </Suspense> */}
-              <InputForm
-                socket={socket}
-                username={username}
-                updateUsername={updateUsername}
-              />
+              <InputForm socket={socket} username={username} />
             </div>
             <UserList users={users} connected={connected} />
           </div>
