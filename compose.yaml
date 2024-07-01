@@ -1,5 +1,6 @@
 services:
   frontend:
+    restart: always
     build:
       context: .
     ports:
@@ -23,6 +24,7 @@ services:
     networks:
       - frontend
   backend:
+    restart: always
     build:
       context: ./server
     ports:
@@ -40,6 +42,7 @@ services:
       - frontend
       - backend
   database:
+    restart: always
     image: redis/redis-stack:latest
     environment:
       - REDIS_ARGS=--save 60 1000 --appendonly yes
