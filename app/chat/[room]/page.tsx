@@ -1,14 +1,15 @@
-"use server";
+import Chat from "./chat";
 
-import dynamic from "next/dynamic";
-const Chat = dynamic(() => import("@/app/chat/[room]/chat"), {
-  ssr: false,
-});
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ room: string }>;
+}) {
+  const { room } = await params;
 
-export default async function Page({ params }: { params: { room: string } }) {
   return (
     <>
-      <Chat room={params.room} />
+      <Chat room={room} />
     </>
   );
 }
